@@ -1,0 +1,14 @@
+*.iml
+.gradle
+.kotlin
+/local.properties
+**/.idea/*
+!**/.idea/codeStyles
+.DS_Store
+/build
+**/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+proguardTools/*.txt
