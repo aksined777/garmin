@@ -1,6 +1,8 @@
 package com.example.garmin.ui.screen.setting
 
 import android.annotation.SuppressLint
+import android.view.WindowManager
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -35,11 +38,12 @@ fun SettingScreen(
 ) {
     val vibrationCheckedState = remember { mutableStateOf(viewModel.getCheckVibration()) }
     val makeUpCheckedState = remember { mutableStateOf(viewModel.getCheckMakeup()) }
+    val checkNoSleep = remember { mutableStateOf(viewModel.getCheckNoSleep()) }
     var error by remember { mutableStateOf(false) }
     val minValue: Int = 30
     val maxValue: Int = 220
     var maxRate by remember { mutableStateOf<String>(viewModel.getMaxRate().toString()) }
-
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -97,6 +101,21 @@ fun SettingScreen(
             stringResource(id = R.string.check_makeup), makeUpCheckedState
         ) { check ->
             viewModel.setCheckMakeup(check)
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        SwitchView(
+            stringResource(id = R.string.check_no_sleep), checkNoSleep
+        ) { check ->
+            viewModel.setCheckNoSleep(check)
+            if (context is ComponentActivity) {
+                if (check) {
+                    context.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                } else {
+                    context.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                }
+            }
         }
     }
 

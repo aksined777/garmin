@@ -12,7 +12,6 @@ import com.example.garmin.data.service.BluetoothService
 import com.example.garmin.ui.navigation.NavigationGraph
 import com.example.garmin.ui.theme.GarminTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.getValue
 
 // GARMIN HRM-DUAL
 @AndroidEntryPoint

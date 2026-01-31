@@ -2,6 +2,7 @@
     <string name="app_name">Garmin</string>
     <string name="check_vibro">Включить вибросигнал</string>
     <string name="check_makeup">Включить экран если потушен</string>
+    <string name="check_no_sleep">Не отключать экран</string>
     <string name="notification_channel_name">Bluetooth Service</string>
     <string name="notification_channel_description">Сервис для работы с Bluetooth устройством</string>
     <string name="notification_title">Garmin Bluetooth</string>

@@ -8,6 +8,7 @@ import javax.inject.Inject
 import javax.inject.Named
 import androidx.core.content.edit
 import com.example.garmin.util.Constants.CHECK_MAKEUP
+import com.example.garmin.util.Constants.CHECK_NO_SLEEP
 import com.example.garmin.util.Constants.CHECK_VIBRATION
 
 class SharedPreferenceStorageImpl @Inject constructor(
@@ -40,7 +41,13 @@ class SharedPreferenceStorageImpl @Inject constructor(
             }
         }
 
-
+    override var checkNoSleep: Boolean
+        get() = preferences.getBoolean(CHECK_NO_SLEEP, false)
+        set(value) {
+            preferences.edit {
+                putBoolean(CHECK_NO_SLEEP, value)
+            }
+        }
 
 
 

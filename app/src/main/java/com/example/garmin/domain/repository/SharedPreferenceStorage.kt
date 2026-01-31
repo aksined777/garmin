@@ -5,4 +5,6 @@ interface SharedPreferenceStorage {
 
     var checkVibration: Boolean
     var checkMakeup: Boolean
+
+    var checkNoSleep: Boolean
 }

@@ -71,4 +71,6 @@ class MainViewModel @Inject constructor(
 
     fun getMaxRate() = sharedPreferenceStorage.maxRate
 
+    fun getCheckNoSleep() = sharedPreferenceStorage.checkNoSleep
+
 }

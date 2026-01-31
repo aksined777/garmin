@@ -9,5 +9,6 @@ object Constants {
     const val CHECK_VIBRATION = "CHECK_VIBRATION"
 
     const val CHECK_MAKEUP = "CHECK_MAKEUP"
+    const val CHECK_NO_SLEEP = "CHECK_MAKEUP"
 
 }

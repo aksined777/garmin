@@ -5,7 +5,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
-import android.util.Log
+import android.view.WindowManager
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -90,8 +91,17 @@ fun MainScreen(
         }
     }
 
+
     LaunchedEffect(Unit) {
         viewModel.startListeningToService()
+
+        if (context is ComponentActivity) {
+            if (viewModel.getCheckNoSleep()) {
+                context.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            } else {
+                context.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
+        }
     }
 
     Scaffold(
@@ -108,7 +118,7 @@ fun MainScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
+                .background(Color.Black)
         ) {
             Spacer(modifier = Modifier.height(16.dp))
             Box(
@@ -146,7 +156,7 @@ fun MainScreen(
                 } else if (state is ScreenState.Content) {
                     val data = (state as ScreenState.Content<*>).data as MainViewState
 
-                    val col = if (data.info.diff < 0) Color.Red else Color.DarkGray
+                    val col = if (data.info.diff < 0) Color.Red else Color.White
                     Text(
                         fontSize = 46.sp,
                         color = col,
@@ -159,6 +169,7 @@ fun MainScreen(
 
                     Text(
                         fontSize = 16.sp,
+                        color = Color.White,
                         textAlign = TextAlign.Center,
                         text = "max rate: ${viewModel.getMaxRate()}",
                         modifier = Modifier.fillMaxWidth()
@@ -192,13 +203,12 @@ fun MainScreen(
                             intent.data = uri
                             context.startActivity(intent)
                         } else {
-                           val instance = BluetoothService.getServiceInstance()
-                           if (instance == null){
+                            val instance = BluetoothService.getServiceInstance()
+                            if (instance == null) {
                                 context.startService(Intent(context, BluetoothService::class.java))
                             } else {
-                               Log.e("OLOLO", "NOT NULL")
-                               viewModel.startScan()
-                           }
+                                viewModel.startScan()
+                            }
                         }
                     },
                     content = { Text(text = stringResource(R.string.app_name)) })

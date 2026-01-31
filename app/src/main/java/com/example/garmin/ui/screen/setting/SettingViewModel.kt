@@ -28,7 +28,12 @@ class SettingViewModel @Inject constructor(
 
     fun getCheckVibration() = sharedPreferenceStorage.checkVibration
     fun getCheckMakeup() = sharedPreferenceStorage.checkMakeup
+    fun getCheckNoSleep() = sharedPreferenceStorage.checkNoSleep
     fun setCheckMakeup (check: Boolean) {
         sharedPreferenceStorage.checkMakeup = check
+    }
+
+    fun setCheckNoSleep (check: Boolean) {
+        sharedPreferenceStorage.checkNoSleep = check
     }
 }
