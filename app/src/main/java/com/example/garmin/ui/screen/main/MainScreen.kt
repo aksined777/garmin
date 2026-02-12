@@ -65,6 +65,7 @@ fun MainScreen(
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val errorMessage = remember { mutableStateOf("") }
+    val colorBack = remember { mutableStateOf(Color.Black) }
     val showDialog = remember { mutableStateOf(false) }
     val context = LocalContext.current
     val bluetoothScanState = rememberPermissionState(
@@ -118,7 +119,7 @@ fun MainScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Black)
+                .background(colorBack.value)
         ) {
             Spacer(modifier = Modifier.height(16.dp))
             Box(
@@ -155,11 +156,10 @@ fun MainScreen(
                     )
                 } else if (state is ScreenState.Content) {
                     val data = (state as ScreenState.Content<*>).data as MainViewState
-
-                    val col = if (data.info.diff < 0) Color.Red else Color.White
+                    colorBack.value =  if (data.info.diff < 0) Color.Red else Color.Black
                     Text(
                         fontSize = 46.sp,
-                        color = col,
+                        color = Color.White,
                         textAlign = TextAlign.Center,
                         text = data.info.rate.toString(),
                         modifier = Modifier.fillMaxWidth()
